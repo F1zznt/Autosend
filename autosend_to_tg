@@ -1,0 +1,59 @@
+# Мне нужно было отправить в бота телеграмм файл, состоящий из 45000 строчек, но бот принимал только 35, поэтому я написал простенький скрипт, который я могу поставить на ночь и насладиться результатом после хорошего сна)
+# Это мой первый проект на гитхабе и первая автоматизация бытовой задачки
+
+# I needed to send a telegram file consisting of 45,000 lines to the bot, but the bot only accepted 35, so I wrote a simple script that I can put on at night and enjoy the result after a good sleep)
+# This is my first project on github and the first automation of household tasks
+
+
+import time
+import pyautogui
+import pyperclip
+
+def read_lines_from_file(filename, num_lines):
+    with open(filename, 'r') as file:
+        lines = [line.strip() for line in file.readlines()]
+    return lines[:num_lines]
+
+
+def delete_lines_from_file(filename, num_lines):
+    with open(filename, 'r') as file:
+        lines = file.readlines()
+    with open(filename, 'w') as file:
+        file.writelines(lines[num_lines:])
+
+
+def main():
+    filename = 'ваш_файл.txt'
+    num_lines_to_send = 35
+    pyperclip.copy("/reg 5")
+    while True:
+        lines_to_send = read_lines_from_file(filename, num_lines_to_send)
+
+        # проверка на 35 строчек
+        if not lines_to_send:
+            print("All lines have been sent.")
+            break
+
+        # Проверка/Отладка
+        # print(*lines_to_send, sep="\n")
+
+        # высылка в телеграмм
+        for line in lines_to_send:
+            pyautogui.write(line.replace("|", "/")) 
+            # у меня в файле во многих строчках был символ "|", но вышла интересная ошибка, что телеграмм просто заменял этот символ и цифру после него на смайлик, поэтому я заменил на "/", ведь так тоже можно было отправлять
+            pyautogui.hotkey('shift', 'enter')
+            # настакать 35 строчек в одном сообщении
+        pyautogui.press("enter") # отправка  сообщения
+
+        # антиспам система
+        time.sleep(25)
+
+        
+if __name__ == "__main__":
+    time.sleep(5) # время что бы зайти в тг
+    main()
+
+# экономим электроэнергию)
+pyautogui.hotkey('alt', 'F4')  # закрытие телеги
+#pyautogui.hotkey('alt', 'F4')  # закрытие пайчарма
+os.system('shutdown -s') # выключение пк, лень было дорабатывать, но хоть что то
