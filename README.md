@@ -1,0 +1,5 @@
+- 👋 Hi, I’m @F1zznt
+- 👀 I'm interested in programming
+- 🌱 I'm currently studying at school and at Yandex Lyceum
+- 💞 ️ I am looking for opportunities for cooperation, if you are interested in automating something or writing some kind of program, write to TG or email
+- 📫 My contacts: oleg88724@gmail.com , TG: fizz_work
